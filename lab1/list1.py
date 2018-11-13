@@ -35,15 +35,18 @@ def tuple_sort(numbers):
 
 
 if __name__ == '__main__':
-    #  test №1
+    #  task №1
+    print("============ task 1 ================")
     test = me(['f2f', 'afeaf', 'f2ff', 'eafaefaefafe'])
     print(test)
 
-    #  test №2
+    #  task №2
+    print("============ task 2 ================")
     test = fx(['tix', 'xyz', 'apple', 'xacadu', 'aabbbccc', 'xzfqfe3', 'felfafae', 'aaeaaaa', 'xaaaaaaaa'])
     print(test)
 
-    #  test №3
+    #  task №3
+    print("============ task 3 ================")
     test = tuple_sort([(1, 7), (1, 3), (3, 4, 57), (2, 2)])
     print(test)
 #  test №2
