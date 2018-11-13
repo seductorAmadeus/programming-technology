@@ -30,6 +30,8 @@ def fx(words):
 # Вх: список непустых кортежей,
 # Возвр: список сортир по возрастанию последнего элемента в каждом корт.
 # [(1, 7), (1, 3), (3, 4, 5), (2, 2)] -> [(2, 2), (1, 3), (3, 4, 5), (1, 7)]
+def tupleSort(numbers):
+    return sorted(numbers, key=lambda x: x[-1])
 
 
 if __name__ == '__main__':
@@ -37,6 +39,11 @@ if __name__ == '__main__':
     test = me(['f2f', 'afeaf', 'f2ff', 'eafaefaefafe'])
     print(test)
 
-    test1 = fx(['tix', 'xyz', 'apple', 'xacadu', 'aabbbccc', 'xzfqfe3', 'felfafae', 'aaeaaaa', 'xaaaaaaaa'])
-    print(test1)
+    #  test №2
+    test = fx(['tix', 'xyz', 'apple', 'xacadu', 'aabbbccc', 'xzfqfe3', 'felfafae', 'aaeaaaa', 'xaaaaaaaa'])
+    print(test)
+
+    #  test №3
+    test = tupleSort([(1, 7), (1, 3), (3, 4, 57), (2, 2)])
+    print(test)
 #  test №2
