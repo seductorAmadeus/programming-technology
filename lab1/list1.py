@@ -44,6 +44,6 @@ if __name__ == '__main__':
     print(test)
 
     #  test №3
-    test = tupleSort([(1, 7), (1, 3), (3, 4, 57), (2, 2)])
+    test = tuple_sort([(1, 7), (1, 3), (3, 4, 57), (2, 2)])
     print(test)
 #  test №2
