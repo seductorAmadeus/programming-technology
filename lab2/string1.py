@@ -25,10 +25,10 @@ def start_end_symbols(s):
 # Результат: string где все вхождения 1го символа заменяются на '*'
 # (кроме самого 1го символа)
 # Пример: 'bibble' -> 'bi**le'
-# s.replace(stra, strb)
-
 def replace_char(s):
-    return ""
+    first_char = s[0]
+    replaced_string = s.replace(first_char, '*')
+    return replaced_string.replace('*', first_char, 1)
 
 
 # 4
@@ -38,7 +38,8 @@ def replace_char(s):
 # Т.е. 'max', pid' -> 'pix mad'
 # 'dog', 'dinner' -> 'dig donner'
 def str_mix(a, b):
-    return ""
+    a, b = a.replace(a[:2], b[:2], 1), b.replace(b[:2], a[:2], 1)
+    return a + " " + b
 
 
 # Provided simple test() function used in main() to print
@@ -54,5 +55,5 @@ if __name__ == '__main__':
     test(num_of_items(5), 'Number of: 5')
     test(num_of_items(10), 'Number of: many')
     test(start_end_symbols('welcomed'), 'weed')
-    # test(start_end_symbols('welcome'), 'weme')
-    # test(replace_char('bibble'), 'bi**le')
+    test(replace_char('bibble'), 'bi**le')
+    test(str_mix('dog', 'dinner'), 'dig donner')
