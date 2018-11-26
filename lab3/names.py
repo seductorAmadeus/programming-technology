@@ -3,13 +3,11 @@ import sys
 
 
 def untag(string: str) -> str:
-
     """
     Вставляет вместо html-тегов пробел (" ")
     :param string: строка, которую нужно очистить
     :return: очищенная строка
     """
-
     clean_pattern = re.compile(r'<.*?>')
     clean_text = re.sub(clean_pattern, ' ', string)
     return clean_text
@@ -29,6 +27,19 @@ def get_names(html: str) -> list:
     return result
 
 
+def get_year(html: str) -> list:
+    """
+    Имена расположены в теге <td>...</td> при этом имеется формат:
+    <td>rating</td> <td>male_name</td> <td>female_name</td>
+    Поэтому сразу ищем такую строку в html документе
+    :param html: текст в формате html
+    :return: список с вложенным массивом в формате [rate, male, female]
+    """
+    result = []
+    for names in re.findall(r"<input*>", html):
+        result.append(untag(names).strip().split())
+    return result
+
 
 def extr_name(filename: str) -> dict:
     """
@@ -42,8 +53,8 @@ def extr_name(filename: str) -> dict:
     """
     html = open(filename, "r").read()
 
-    # Получаем год из имени файла
-    year = re.findall(r"\d+", filename)[0]
+    # get 'year' from tag
+    year = re.search(r'Popularity in (([0-9]){4})', html).group(1)
     top_male_names = []
     top_female_names = []
     all_names = [year]
@@ -64,9 +75,6 @@ def extr_name(filename: str) -> dict:
 
 
 def main():
-    """
-    Подразумевается, что имя входного файла и его содержимое строго типизированы.
-    """
     args = sys.argv[1:]
     if not args:
         print('use: [--file] file [file ...]')
