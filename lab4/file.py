@@ -1,76 +1,63 @@
-# -*- coding: utf-8 -*-
-
 import random
 import sys
 
 
-def mem_dict(filename: str) -> dict:
-
+def read_word_list(filename):
     """
-    Создает словарь, в качестве ключа у которого содержится слово,
-    а в значении возможное слово
-    :param filename: имя (путь) к файлу
-    :return: словарь {слово:[возможные значения...], ...}
+    Возвращает список слов
+    :param filename: имя файла
+    :return: список слов
     """
+    f = open(filename, "r")
+    if f.mode == "r":
+        contents = f.read()
+        # contents.replace("\n", " ")
+        return contents.split(" ")
 
-    try:
-        file = open(filename, "r", encoding="UTF-8")
-    except FileNotFoundError:
-        print("Указанный файл не найден")
-        exit()
 
-    # Считываем все слова из файла
-    words = []
-    for line in file.read().split("\n"):
-        for word in line.split(" "):
-            words.append(word)
-
-    word_dict = {}
-
-    for i in range(len(words)-1):
-        if word_dict.__contains__(words[i]):
-            word_dict[words[i]].append(words[i+1])
+def make_dict(words):
+    """
+    Возвращает словарь
+    :param words: cписок слов
+    :return: словарь
+    """
+    dic = {"": []}
+    last = words[0]
+    dic[""].append(last)
+    words = words[1:]
+    for w in words:
+        if last in dic:
+            dic[last].append(w)
         else:
-            word_dict[words[i]] = [words[i+1], ""]
-
-    # Если последнее слово не включено в словарь, добавляем значение пустой строки по-умолчанию
-    if not word_dict.__contains__(words[-1]):
-        word_dict[words[-1]] = [""]
-
-    return word_dict
+            dic[last] = [w]
+        dic[""].append(w)
+        last = w
+    dic[last] = [""]
+    return dic
 
 
-def create_new_sentence(words_dictionary: dict) -> str:
-
+def mem_dict(filename):
     """
-    Создает новое предложение на основе "Похожего" словаря
-    :param words_dictionary: словарь со словами и его возможными значениями
-    :return: новое предложение
+    Возвращает сгенерированный текст
+    :param filename: имя файла
+    :return: сгенерированный текст
     """
-
-    # В качестве первого слова выбираем случайное слово из словаря
-    string_build = [random.choice(list(words_dictionary.keys()))]
-
-    # Если последнее слово пустая строка, то предложение окончено
-    while string_build[-1] != "":
-        string_build.append(random.choice(words_dictionary.get(string_build[-1])))
-
-    # Преобразуем массив слов в строку
-    result = ""
-    for word in string_build:
-        result += word
-        result += " "
-
-    return result
+    word_list = read_word_list(filename)
+    dic = make_dict(word_list)
+    gen_text_len = len(word_list)
+    word = ""
+    ret = ""
+    while gen_text_len > 0:
+        if word != "":
+            ret += word + " "
+            gen_text_len -= 1
+        word = random.choice(dic[word])
+    return ret
 
 
 def main():
-
-    if len(sys.argv) > 1:
-        words_dictionary = mem_dict(sys.argv[1])
-        print(create_new_sentence(words_dictionary))
-    else:
-        print("Передайте имя файла в качестве параметра")
+    path = sys.argv[1]
+    print(mem_dict(path))
 
 
 if __name__ == '__main__':
