@@ -1,32 +1,60 @@
 <html>
 <head>
-    <script src="/static/app.js" language="JavaScript"></script>
     <!--<link rel="stylesheet" type="text/css" href="style.css">-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Level: {{difficulty}}</title>
+    <title>{{difficulty}}</title>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script src="/static/app.js"></script>
+    <script src="/static/buttons.js"></script>
+    <script src="/static/animate.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/buttons.css">
 </head>
 <body>
+<div id="snackbar">
+    <span id="guessresult"></span>
+</div>
+<main>
+
     <div id="images">
         {% for image_link in image_links %}
-            <img src="{{ image_link }}">
+        <img src="{{ image_link }}">
         {% endfor %}
     </div>
-    <form id="guessform">
-        Your guess:
-        <select id="guessname">
-            <option selected>Name</option>
-            {% for name in names %}
-            <option value="{{ name }}">{{ name }}</option>
-            {% endfor %}
-        </select>
-        <button type="button" id="cmdCheckGuess"
-                onclick='getGuessResult("randomdiv", "guessname", "guessresult")'>Guess!</button>
-        <span id="guessresult">Never tried</span>
-    </form>
+    <div class="someElement">
+        <form id="guessform">
+            <select id="guessname">
+                {% for name in names %}
+                <option value="{{ name }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+            <br/>
+            <button type="button" id="cmdCheckGuess"
+                    onclick='getGuessResult("randomdiv", "guessname", "guessresult"); myFunction()'>guess
+            </button>
+            <br/>
+        </form>
+    </div>
     <div id="newg">
         <button type="button"
-                onclick='location.reload();'>New Game!</button>
+                onclick='location.reload();'>new game
+        </button>
     </div>
     <div id="randomdiv" style="display: none;">{{ name_index }}</div>
+</main>
+<footer>
+    <div class="authors">
+        <div class="name_id">Ефимов Дмитрий</div>
+        <div class="name_id">Иванько Олег</div>
+        <div class="name_id">Райла Мартин</div>
+    </div>
+    <div class="group">
+        <div id="group_num">P3411</div>
+    </div>
+</footer>
 </body>
 </html>
