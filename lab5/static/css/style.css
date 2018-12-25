@@ -181,3 +181,37 @@ img {
         opacity: 0;
     }
 }
+
+@media all and (max-width: 1024px) {
+    footer {
+        grid-template-columns: unset;
+        grid-template-rows: 50% 50%;
+    }
+
+    .authors {
+
+        grid-column: unset;
+
+        padding: 0;
+
+        text-align: center;
+
+        padding-top: 46px;
+
+        border-right: unset;
+
+        padding-top: 22px;
+
+        border-bottom: 2px white solid;
+
+    }
+
+    .group {
+
+        grid-column: unset;
+
+        padding: 0;
+
+        text-align: center;
+    }
+}
